@@ -40,6 +40,8 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("We have a request at url: %s", message)
 	msg := "hello world! I love you so much."
+	w.Header().Set("Content-Type", "text/plain")
+	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(msg))
 }
 
@@ -93,21 +95,16 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	imageUrl := fmt.Sprintf(publicURL, StorageBucketName, name)
 
 	msg := imageUrl
+	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(msg))
 }
 
 func main() {
-	// http.HandleFunc("/upload", uploadHandler)
-	// if err := http.ListenAndServe(":9090", nil); err != nil {
-	// 	panic(err)
-	// }
-	http.HandleFunc("/", helloHandler)
+	fmt.Println("Server listening at 9090")
+	http.HandleFunc("/upload", uploadHandler)
+	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/form", formHandler)
 	if err := http.ListenAndServe(":9090", nil); err != nil {
 		panic(err)
 	}
-
-	// http.HandleFunc("/form", formHandler)
-	// if err := http.ListenAndServe(":9090", nil); err != nil {
-	// 	panic(err)
-	// }
 }
