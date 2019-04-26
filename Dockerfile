@@ -13,6 +13,7 @@ WORKDIR /app
 COPY ./config/go-upload.yaml /var/app/
 COPY ./config/go-upload.yaml /
 COPY ./config/fine-iterator-231706-04d01216bb7a.json /var/app/
+COPY ./form.html .
 COPY --from=builder go/src/github.com/go-upload/dist/go-upload .
 ENV GOOGLE_APPLICATION_CREDENTIALS /var/app/fine-iterator-231706-04d01216bb7a.json
 EXPOSE 9090
