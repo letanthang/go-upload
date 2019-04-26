@@ -1,0 +1,28 @@
+<!doctype HTML>
+<html>
+
+<head>
+  <title>
+    Index
+  </title>
+</head>
+
+<body>
+  <h1>
+    Hello! Now you know how to serve HTML files using Node.js!!!
+    <!--
+      http://staging-truck-gw.ghn.vn:8000/api/v1/public/crm/contract/upload
+      http://localhost:9090/api/v1/public/crm/contract/upload
+    -->
+  </h1>
+  <form action="http://staging-truck-gw.ghn.vn:8000/api/v1/public/crm/contract/upload" method="post"
+    enctype="multipart/form-data">
+    First name: <input type="text" name="fname"><br>
+    Last name: <input type="text" name="lname"><br>
+    Select image to upload:
+    <input type="file" name="file" id="file"><br />
+    <input type="submit" value="Upload Image" name="submit">
+  </form>
+</body>
+
+</html>

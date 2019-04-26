@@ -1,0 +1,62 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: thanglab-APP_NAME
+  #namespace: default
+  labels:
+    app: thanglab-APP_NAME
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: thanglab-APP_NAME
+  template:
+    metadata:
+      labels:
+        app: thanglab-APP_NAME
+        date: "_DATE_"
+    spec:
+      #imagePullSecrets:
+      #- name: regcred
+      terminationGracePeriodSeconds: 180
+      restartPolicy: Always
+      containers:
+      - name: thanglab-APP_NAME
+        image: letanthang/go-upload
+        ports:
+        - containerPort: 9090
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: env-env
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "50m"
+          limits:
+            memory: "60Mi"
+            cpu: "70m"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: thanglab-APP_NAME
+  labels:
+    app: thanglab-APP_NAME
+spec:
+  selector:
+    app: thanglab-APP_NAME
+  type: NodePort # NodePort|LoadBalancer|ExternalName Test kong ingress
+  ports:
+  ####### Kong Ingress
+  - port: 9091
+    targetPort: 9090
+    protocol: TCP
+    name: thanglab-APP_NAME
+---
