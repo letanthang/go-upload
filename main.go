@@ -31,14 +31,14 @@ func configureStorage(bucketID string) *storage.BucketHandle {
 func formHandler(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 
-	fmt.Printf("We have a request at url: %s", message)
+	fmt.Printf("We have a request at url: %s\n", message)
 	http.ServeFile(w, r, "./form.html")
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 
-	fmt.Printf("We have a request at url: %s", message)
+	fmt.Printf("We have a request at url: %s\n", message)
 	msg := "hello world! I love you so much."
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
@@ -47,7 +47,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
-	fmt.Printf("We have a request at url: %s", message)
+	fmt.Printf("We have a request at url: %s\n", message)
 
 	// name := c.FormValue("name")
 
