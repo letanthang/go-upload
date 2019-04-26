@@ -30,7 +30,7 @@ spec:
       - name: thanglab-APP_NAME
         image: letanthang/go-upload
         ports:
-        - containerPort: 9090
+        - containerPort: 3000
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
