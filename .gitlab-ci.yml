@@ -1,0 +1,64 @@
+image: alpine:latest
+
+variables:
+  DOCKER_DRIVER: overlay2
+  CI_REGISTRY_HOST: asia.gcr.io/fine-iterator-231706
+
+stages:
+  - build
+  - test
+  - staging
+  - production
+  
+build:
+  stage: build
+  image: docker:stable-git
+  services:
+  - docker:stable-dind
+  script:
+    - docker login -u $GCP_DOCKER_REGISTRY_KEY --password-stdin https://asia.gcr.io
+    - docker build -t "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME" -t "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME:$CI_COMMIT_SHA" .
+    - docker push "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME:$CI_COMMIT_SHA"
+    - docker push "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME"
+  only:
+    - master
+
+
+test:
+  stage: test
+  script:
+    - echo "mock tests are passed"
+    
+####################
+## Staging deploy ##
+####################
+
+staging:
+  stage: staging
+  image: google/cloud-sdk:alpine
+  variables:
+    RELEASE: "staging"
+  script:
+    - echo "$GCP_DOCKER_REGISTRY_KEY" > /tmp/key.json
+    - gcloud auth activate-service-account --key-file /tmp/key.json
+    - gcloud container clusters get-credentials thanglab5 --zone asia-southeast1-b --project fine-iterator-231706
+    - gcloud components install kubectl
+    - sed 's/_VERSION_/'"latest"'/g; s/APP_NAME/'"$CI_PROJECT_NAME"'/g; s/_DATE_/'"$DATE"'/g; s/env-/'"$RELEASE-"'/g' ./provision/k8s/* > deployment.yaml
+    - cat deployment.yaml
+    - kubectl apply -f deployment.yaml
+  environment:
+    name: staging
+  only:
+    - master
+
+production:
+  stage: production
+  variables:
+    RELEASE: "production"
+  script:
+    - echo "mock deploy production"
+  when: manual
+  environment:
+    name: production
+  only:
+    - master

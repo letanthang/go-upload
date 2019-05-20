@@ -28,7 +28,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: thanglab-APP_NAME
-        image: letanthang/go-upload
+        image: asia.gcr.io/fine-iterator-231706/thanglab_go-upload:_VERSION_
         ports:
         - containerPort: 9090
         imagePullPolicy: Always
