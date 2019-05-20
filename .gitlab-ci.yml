@@ -13,7 +13,7 @@ stages:
 build:
   stage: build
   tags:
-    - thanglab
+    - macos
   image: docker:stable-git
   services:
   - docker:stable-dind
