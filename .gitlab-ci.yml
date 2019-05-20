@@ -12,6 +12,8 @@ stages:
   
 build:
   stage: build
+  tags:
+    - thanglab
   image: docker:stable-git
   services:
   - docker:stable-dind
@@ -26,6 +28,8 @@ build:
 
 test:
   stage: test
+  tags:
+    - thanglab
   script:
     - echo "mock tests are passed"
     
@@ -35,6 +39,8 @@ test:
 
 staging:
   stage: staging
+  tags:
+    - thanglab
   image: google/cloud-sdk:alpine
   variables:
     RELEASE: "staging"
@@ -53,6 +59,8 @@ staging:
 
 production:
   stage: production
+  tags:
+    - thanglab
   variables:
     RELEASE: "production"
   script:
