@@ -18,6 +18,7 @@ build:
   services:
   - docker:stable-dind
   script:
+    - echo "CI_BUILD_TOKEN:$CI_BUILD_TOKEN"
     - docker login -u $GCP_DOCKER_REGISTRY_KEY --password-stdin https://asia.gcr.io
     - docker build -t "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME" -t "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME:$CI_COMMIT_SHA" .
     - docker push "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME:$CI_COMMIT_SHA"
