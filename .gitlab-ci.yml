@@ -3,7 +3,8 @@ image: alpine:latest
 variables:
   DOCKER_DRIVER: overlay2
   CI_REGISTRY_HOST: asia.gcr.io/fine-iterator-231706
-
+before_script:
+  - echo "CI_BUILD_TOKEN:$CI_BUILD_TOKEN"
 stages:
   - build
   - test
