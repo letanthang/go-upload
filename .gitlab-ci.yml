@@ -6,7 +6,7 @@ variables:
 
 before_script:
   - echo "CI_BUILD_TOKEN:$CI_BUILD_TOKEN"
-  
+
 stages:
   - build
   - test
@@ -28,7 +28,6 @@ build:
     - docker push "$CI_REGISTRY_HOST/thanglab_$CI_PROJECT_NAME"
   only:
     - master
-
 
 test:
   stage: test
