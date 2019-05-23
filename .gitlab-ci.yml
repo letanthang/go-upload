@@ -53,6 +53,8 @@ staging:
     - gcloud auth activate-service-account --key-file /tmp/key.json
     - gcloud container clusters get-credentials thanglab5 --zone asia-southeast1-b --project fine-iterator-231706
     - gcloud components install kubectl
+    - export _VERSION_="$CI_COMMIT_SHA"
+    - export DATE=`date +%s`
     - sed 's/_VERSION_/'"latest"'/g; s/APP_NAME/'"$CI_PROJECT_NAME"'/g; s/_DATE_/'"$DATE"'/g; s/env-/'"$RELEASE-"'/g' ./provision/k8s/* > deployment.yaml
     - cat deployment.yaml
     - kubectl apply -f deployment.yaml
