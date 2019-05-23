@@ -39,7 +39,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 
 	fmt.Printf("We have a request at url: %s\n", message)
-	msg := "hello world! I love you so much."
+	msg := "hello world! I love you so much. :3"
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(msg))
@@ -100,7 +100,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	////////////
+	//////////////
 	fmt.Println("Server listening at 9090")
 	http.HandleFunc("/upload", uploadHandler)
 	http.HandleFunc("/hello", helloHandler)
