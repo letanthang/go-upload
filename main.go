@@ -39,7 +39,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 
 	fmt.Printf("We have a request at url: %s\n", message)
-	msg := "hello world! I love you so much. :3"
+	msg := "hello world! I love you so much. :3:3:3"
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(msg))
