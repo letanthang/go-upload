@@ -10,6 +10,8 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/gofrs/uuid"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
 )
 
@@ -101,6 +103,12 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	////////////////
+	e := echo.New()
+	e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{
+		StackSize: 1 << 10, //1KB
+	}))
+	e.Use(middleware.CORS())
+	e.Use(middleware.RequestID())
 	fmt.Println("Server listening at 9090")
 	http.HandleFunc("/upload", uploadHandler)
 	http.HandleFunc("/hello", helloHandler)
