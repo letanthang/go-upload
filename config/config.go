@@ -27,6 +27,12 @@ type Schema struct {
 		JWTExp           int    `mapstructure:"jwt_exp"`
 		JWTPol           string `mapstructure:"jwt_pol"`
 	} `mapstructure:"encryption"`
+
+	Profiler struct {
+		Prometheus    bool   `mapstructure:"prometheus"`
+		StatsdAddress string `mapstructure:"statsd_address"`
+		Service       string `mapstructure:"service"`
+	} `mapstructure:"profiler"`
 }
 
 var Config Schema

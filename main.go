@@ -5,6 +5,8 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/letanthang/go-upload/config"
+	"github.com/letanthang/go-upload/profiler"
 	"github.com/letanthang/go-upload/route"
 )
 
@@ -19,6 +21,10 @@ func main() {
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
 	}))
+	if config.Config.Profiler.StatsdAddress != "" {
+		e.Use(profiler.ProfilerWithConfig(profiler.ProfilerConfig{Address: config.Config.Profiler.StatsdAddress, Service: config.Config.Profiler.Service}))
+	}
+
 	e.File("/form", "form.html")
 	route.Public(e)
 

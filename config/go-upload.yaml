@@ -15,3 +15,8 @@ encryption:
   jwt_exp: 72
   jwt_pol: 59a795909e65177c27fcdd87
 
+profiler:
+  prometheus: false
+  statsd_address: 127.0.0.1:9095
+  service: assets
+
