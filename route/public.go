@@ -9,4 +9,5 @@ func Public(e *echo.Echo) {
 	publicRoute := e.Group("/v1/public")
 	publicRoute.GET("/health", handler_public.HealthCheck)
 	publicRoute.GET("/hello", handler_public.Hello)
+	publicRoute.POST("/upload", handler_public.Upload)
 }
