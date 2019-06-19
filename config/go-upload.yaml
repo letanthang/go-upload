@@ -17,6 +17,6 @@ encryption:
 
 profiler:
   prometheus: true
-  statsd_address: 127.0.0.1:9097
+  statsd_address: 127.0.0.1:9125
   service: "go-upload"
 
