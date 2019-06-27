@@ -16,7 +16,7 @@ encryption:
   jwt_pol: 59a795909e65177c27fcdd87
 
 profiler:
-  prometheus: true
-  statsd_address: 127.0.0.1:9125
+  prometheus: false
+  statsd_address: 127.0.0.1:8125
   service: "go-upload"
 
