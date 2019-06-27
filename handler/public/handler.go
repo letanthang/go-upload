@@ -5,8 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"path"
+	"time"
 
 	"cloud.google.com/go/storage"
 	"github.com/gofrs/uuid"
@@ -19,6 +21,10 @@ func HealthCheck(c echo.Context) error {
 }
 
 func Hello(c echo.Context) error {
+	rand.Seed(time.Now().UnixNano())
+	randNum := rand.Intn(400-100) + 100
+	time.Sleep(time.Duration(randNum) * time.Millisecond)
+	fmt.Printf("sleep in %d milisecond \n", randNum)
 	return c.String(http.StatusOK, "hello world! I love you so much. :3:3:3:4")
 }
 
