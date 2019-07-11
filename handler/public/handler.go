@@ -27,6 +27,20 @@ func Hello(c echo.Context) error {
 	fmt.Printf("sleep in %d milisecond \n", randNum)
 	return c.String(http.StatusOK, "hello world! I love you so much. :3:3:3:4")
 }
+func High(c echo.Context) error {
+	rand.Seed(time.Now().UnixNano())
+	randNum := rand.Intn(600-250) + 250
+	time.Sleep(time.Duration(randNum) * time.Millisecond)
+	fmt.Printf("sleep in %d milisecond \n", randNum)
+	return c.String(http.StatusOK, "hello world! I love you so much. :3:3:3:4")
+}
+func Low(c echo.Context) error {
+	rand.Seed(time.Now().UnixNano())
+	randNum := rand.Intn(100-20) + 20
+	time.Sleep(time.Duration(randNum) * time.Millisecond)
+	fmt.Printf("sleep in %d milisecond \n", randNum)
+	return c.String(http.StatusOK, "hello world! I love you so much. :3:3:3:4")
+}
 
 func Upload(c echo.Context) error {
 	r := c.Request()
